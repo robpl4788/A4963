@@ -5,7 +5,7 @@
 #include "A4963_def.h"
 #include "A4963_config.h"
 
-class A4963Controler
+class A4963Controller
 {
 	public:
 
@@ -26,6 +26,6 @@ class A4963Controler
 };
 
 
-extern A4963Controler A4963;
+extern A4963Controller A4963;
 
 #endif

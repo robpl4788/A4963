@@ -12,7 +12,7 @@
 #define SPI_SPEED 20000000 // max speed supported by the A4963, actual speed will probably be slower depending of your arduino max speed
 
 
-void A4963Controler::begin()
+void A4963Controller::begin()
 {
 	SPI.begin();
 	// set SPD and FAULT as inputs with pullup
@@ -23,17 +23,17 @@ void A4963Controler::begin()
 	digitalWrite(PWM_PIN, LOW);
 };
 
-void A4963Controler::end()
+void A4963Controller::end()
 {
 	SPI.end();
 }
 
-void A4963Controler::setPWM(uint8_t pwm_value)
+void A4963Controller::setPWM(uint8_t pwm_value)
 {
 	analogWrite(PWM_PIN, pwm_value);
 }
 
-uint16_t A4963Controler::SPITransaction(uint16_t value)
+uint16_t A4963Controller::SPITransaction(uint16_t value)
 {
 	SPI.beginTransaction(SPISettings(SPI_SPEED, MSBFIRST, SPI_MODE3));
 	digitalWrite(SS_PIN, LOW);
@@ -43,18 +43,18 @@ uint16_t A4963Controler::SPITransaction(uint16_t value)
 	return value;
 }
 
-uint16_t A4963Controler::write(uint16_t address, uint16_t value)
+uint16_t A4963Controller::write(uint16_t address, uint16_t value)
 {
 	return SPITransaction(address | REG_WRITE | value);
 }
 
-uint16_t A4963Controler::read(uint16_t address)
+uint16_t A4963Controller::read(uint16_t address)
 {
 	return SPITransaction(address | REG_READ);
 }
 
 #ifdef ARDUINO_ARCH_AVR
-void A4963Controler::onFault(CallbackPtr callback)
+void A4963Controller::onFault(CallbackPtr callback)
 {
 	if(callback)
 	{
@@ -66,7 +66,7 @@ void A4963Controler::onFault(CallbackPtr callback)
 	}
 }
 
-void A4963Controler::onSpeed(CallbackPtr callback)
+void A4963Controller::onSpeed(CallbackPtr callback)
 {
 	if(callback)
 	{
@@ -79,6 +79,6 @@ void A4963Controler::onSpeed(CallbackPtr callback)
 }
 #endif
 
-A4963Controler A4963;
+A4963Controller A4963;
 
 
